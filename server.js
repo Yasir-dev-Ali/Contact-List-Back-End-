@@ -16,9 +16,12 @@ const port = process.env.PORT || 5000;
 
 // Route
 const contactRoute = require('./Route/contact.route');
+const userRoute = require('./Route/user.route');
 const errorHandler = require('./Middleware/error.handler');
 
+
 app.use('/api/contact', contactRoute);
+app.use("/api/user",userRoute)
 app.use(errorHandler);
 
 

@@ -38,15 +38,40 @@ const createContact = asyncHandler( async (req, res) => {
 // updateContact
 
 const updateContact = asyncHandler( async (req, res) => {
-    res.status(200).json({ message: `Hello World This Put Method ${req.params.id}`, 
+  const contact= await Contact.findById(req.params.id)
+  if(!contact){
+        res.status(404);
+        throw new Error('Contact not found');
+  }
+ const updateContact= await Contact.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+            new:true,
+          
+        }
 
-    });
+ )
+    res.status(200).json(updateContact);
+
+
 });
+
 
 // deleteContact
 
 const deleteContact = asyncHandler( async (req, res) => {
-    res.status(200).json({ message: `Hello World This Delete Method ${req.params.id}` });
+    const contact= await Contact.findById(req.params.id)
+    if(!contact){
+          res.status(404);
+          throw new Error('Contact not found');
+    }
+    await Contact.remove();
+    res.status(200).json(contact);
+    
+    
+
+
 });
 
 
